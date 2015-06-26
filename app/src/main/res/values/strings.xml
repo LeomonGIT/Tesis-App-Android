@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">SmartMarket</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="openDrawer">openDrawer</string>
+    <string name="closeDrawer">closeDrawer</string>
+    <string name="action_settings">Detalle</string>
+    <string name="main_title">Smart Market</string>
+
+    <!-- Login -->
+    <string name="btn_login">ACCEDER</string>
+    <string name="hint_usuario">Usuario</string>
+    <string name="hint_pass">Password</string>
+    <string name="title_activity_main_menu">SmartMarket</string>
+
+    <string name="hello_world">Hello world!</string>
+</resources>
