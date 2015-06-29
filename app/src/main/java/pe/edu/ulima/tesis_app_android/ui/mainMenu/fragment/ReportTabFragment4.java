@@ -15,39 +15,53 @@ import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapte
 import java.util.ArrayList;
 import java.util.List;
 
+import lecho.lib.hellocharts.listener.PieChartOnValueSelectListener;
+import lecho.lib.hellocharts.model.SliceValue;
 import pe.edu.ulima.tesis_app_android.R;
-import pe.edu.ulima.tesis_app_android.ui.mainMenu.Adapter.TestRecyclerViewAdapter;
+import pe.edu.ulima.tesis_app_android.ui.mainMenu.Adapter.QuintoTabAdapter;
 
-public class RecyclerViewFragment extends Fragment {
+
+public class ReportTabFragment4 extends Fragment implements PieChartOnValueSelectListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-
+    private static int position;
     private List<Object> mContentItems = new ArrayList<>();
 
-    public static RecyclerViewFragment newInstance() {
-        return new RecyclerViewFragment();
+    public static ReportTabFragment4 newInstance() {
+
+        return new ReportTabFragment4();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_recyclerview, container, false);
+        return inflater.inflate(R.layout.fragment_report_tab, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView1);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        for (int i = 0; i < 100; ++i)
+        for (int i = 0; i < 3; ++i)
             mContentItems.add(new Object());
+                mAdapter = new RecyclerViewMaterialAdapter(new QuintoTabAdapter(mContentItems));
 
-        mAdapter = new RecyclerViewMaterialAdapter(new TestRecyclerViewAdapter(mContentItems));
         mRecyclerView.setAdapter(mAdapter);
 
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+    }
+
+    @Override
+    public void onValueSelected(int i, SliceValue sliceValue) {
+
+    }
+
+    @Override
+    public void onValueDeselected() {
+
     }
 }

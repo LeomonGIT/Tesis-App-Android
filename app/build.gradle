@@ -26,6 +26,7 @@ dependencies {
     compile files('src/main/libs/bolts-android-1.1.4.jar')
     compile 'com.google.android.gms:play-services:6.5.87'
     compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.github.lecho:hellocharts-library:1.5.5@aar'
     compile ('com.github.florent37:materialviewpager:1.0.5.2@aar'){
         transitive = true
     }

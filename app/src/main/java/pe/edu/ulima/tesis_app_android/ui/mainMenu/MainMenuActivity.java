@@ -14,10 +14,11 @@ import com.github.florent37.materialviewpager.header.HeaderDesign;
 
 import pe.edu.ulima.tesis_app_android.R;
 import pe.edu.ulima.tesis_app_android.services.Services;
-import pe.edu.ulima.tesis_app_android.ui.mainMenu.fragment.RecyclerViewFragment;
-import pe.edu.ulima.tesis_app_android.ui.mainMenu.fragment.ReportFragment;
-import pe.edu.ulima.tesis_app_android.ui.mainMenu.fragment.ScrollFragment;
-import pe.edu.ulima.tesis_app_android.ui.mainMenu.fragment.WebViewFragment;
+import pe.edu.ulima.tesis_app_android.ui.mainMenu.fragment.ReportTabFragment;
+import pe.edu.ulima.tesis_app_android.ui.mainMenu.fragment.ReportTabFragment1;
+import pe.edu.ulima.tesis_app_android.ui.mainMenu.fragment.ReportTabFragment2;
+import pe.edu.ulima.tesis_app_android.ui.mainMenu.fragment.ReportTabFragment3;
+import pe.edu.ulima.tesis_app_android.ui.mainMenu.fragment.ReportTabFragment4;
 
 public class MainMenuActivity extends AppCompatActivity {
     private MaterialViewPager mViewPager;
@@ -31,6 +32,7 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         setTitle("");
+
         servicies = new Services();
         titles = servicies.getTitle();
         mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
@@ -60,13 +62,17 @@ public class MainMenuActivity extends AppCompatActivity {
             public Fragment getItem(int position) {
                 switch (position % 5) {
                     case 0:
-                        return ReportFragment.newInstance();
+                        return ReportTabFragment.newInstance();
                     case 1:
-                        return RecyclerViewFragment.newInstance();
+                        return ReportTabFragment1.newInstance();
                     case 2:
-                        return WebViewFragment.newInstance();
+                        return ReportTabFragment2.newInstance();
+                    case 3:
+                        return ReportTabFragment3.newInstance();
+                    case 4:
+                        return ReportTabFragment4.newInstance();
                     default:
-                        return ScrollFragment.newInstance();
+                        return ReportTabFragment.newInstance();
                 }
             }
 

@@ -2,7 +2,7 @@ package pe.edu.ulima.tesis_app_android.services;
 
 public class Services {
 
-    private String[] titles={"Reporte","Reporte","Reporte","Reporte","Reporte"};
+    private String[] titles={"Ventas por Mes","Perdidas Mensuales","Cantidad Productos Vendidos","Monto Ganado","Dias mayor Venta"};
 
     public String[] getTitle(){
         return titles;

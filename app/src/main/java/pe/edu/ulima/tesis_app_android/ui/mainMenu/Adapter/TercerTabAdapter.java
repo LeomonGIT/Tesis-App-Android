@@ -7,9 +7,10 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import lecho.lib.hellocharts.model.ValueShape;
 import pe.edu.ulima.tesis_app_android.R;
 
-public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<Object> contents;
 
@@ -19,7 +20,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     static final int TYPE_DATA = 2;
     static final int TYPE_CELL = 3;
 
-    public TestRecyclerViewAdapter(List<Object> contents) {
+    public TercerTabAdapter(List<Object> contents) {
         this.contents = contents;
     }
 
@@ -46,6 +47,7 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
 
+
         switch (viewType) {
             /*case TYPE_BUTTON:{
                 view = LayoutInflater.from(parent.getContext())
@@ -55,8 +57,8 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             }*/
 
             case TYPE_GRAPH: {
-                view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_graph, parent, false);
+                view = setGraph(parent);
+
                 return new RecyclerView.ViewHolder(view) {
                 };
             }
@@ -75,12 +77,6 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 };
             }
 
-            case TYPE_CELL: {
-                view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.list_item_card_small, parent, false);
-                return new RecyclerView.ViewHolder(view) {
-                };
-            }
         }
         return null;
     }
@@ -101,4 +97,26 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 break;
         }
     }
+
+
+    private View setGraph(ViewGroup parent){
+        View view1 = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_graph_line, parent, false);
+
+        boolean hasAxes = true;
+        boolean hasAxesNames = true;
+        boolean hasLines = true;
+        boolean hasPoints = true;
+        ValueShape shape = ValueShape.CIRCLE;
+        boolean isFilled = false;
+        boolean hasLabels1 = false;
+        boolean isCubic = false;
+        boolean hasLabelForSelected1 = false;
+
+        return view1;
+
+
+    }
+
+
 }
