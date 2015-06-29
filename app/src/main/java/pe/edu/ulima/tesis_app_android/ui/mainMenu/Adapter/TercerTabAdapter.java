@@ -7,8 +7,12 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.BubbleChartData;
 import lecho.lib.hellocharts.model.ValueShape;
+import lecho.lib.hellocharts.view.BubbleChartView;
 import pe.edu.ulima.tesis_app_android.R;
+import pe.edu.ulima.tesis_app_android.services.GenerateData;
 
 public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -101,18 +105,40 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private View setGraph(ViewGroup parent){
         View view1 = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_graph_line, parent, false);
+                .inflate(R.layout.item_graph_buble, parent, false);
 
-        boolean hasAxes = true;
-        boolean hasAxesNames = true;
-        boolean hasLines = true;
-        boolean hasPoints = true;
-        ValueShape shape = ValueShape.CIRCLE;
-        boolean isFilled = false;
-        boolean hasLabels1 = false;
-        boolean isCubic = false;
-        boolean hasLabelForSelected1 = false;
 
+          final int BUBBLES_NUM = 8;
+
+         BubbleChartView chart;
+         BubbleChartData data;
+         boolean hasAxes = true;
+         boolean hasAxesNames = true;
+         ValueShape shape = ValueShape.CIRCLE;
+         boolean hasLabels = false;
+         boolean hasLabelForSelected = false;
+
+        chart = (BubbleChartView) view1.findViewById(R.id.chartBuble);
+
+        data = new BubbleChartData(new GenerateData().getDataBubleFromBI());
+        data.setHasLabels(hasLabels);
+        data.setHasLabelsOnlyForSelected(hasLabelForSelected);
+
+        if (hasAxes) {
+            Axis axisX = new Axis();
+            Axis axisY = new Axis().setHasLines(true);
+            if (hasAxesNames) {
+                axisX.setName("Eje X");
+                axisY.setName("Eje Y");
+            }
+            data.setAxisXBottom(axisX);
+            data.setAxisYLeft(axisY);
+        } else {
+            data.setAxisXBottom(null);
+            data.setAxisYLeft(null);
+        }
+
+        chart.setBubbleChartData(data);
         return view1;
 
 

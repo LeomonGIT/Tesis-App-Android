@@ -7,8 +7,12 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import lecho.lib.hellocharts.model.ColumnChartData;
+import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.ValueShape;
+import lecho.lib.hellocharts.view.ColumnChartView;
+import lecho.lib.hellocharts.view.LineChartView;
 import lecho.lib.hellocharts.view.PieChartView;
 import pe.edu.ulima.tesis_app_android.R;
 import pe.edu.ulima.tesis_app_android.services.GenerateData;
@@ -61,7 +65,7 @@ public class QuintoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }*/
 
             case TYPE_GRAPH: {
-                view = setGraphByTab(0,parent);
+                view = setGraphByTab(parent);
 
                 return new RecyclerView.ViewHolder(view) {
                 };
@@ -103,74 +107,56 @@ public class QuintoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    private View setGraphByTab(int posTab,ViewGroup parent){
-
-        switch (posTab){
-            case 0:
-                View view0 = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_graph_pie, parent, false);
-
-                boolean hasLabels = false;
-                boolean hasLabelsOutside = false;
-                boolean hasCenterCircle = false;
-                boolean hasCenterText1 = false;
-                boolean hasCenterText2 = false;
-                boolean isExploded = false;
-                boolean hasLabelForSelected = false;
-                PieChartView chart;
-                PieChartData data;
-
-                chart = (PieChartView) view0.findViewById(R.id.chartPie);
-
-                //chart.setOnValueTouchListener(new ValueTouchListener());
-
-                data = new PieChartData(new GenerateData().getDataPieFromBi());
-                data.setHasLabels(hasLabels);
-                data.setHasLabelsOnlyForSelected(hasLabelForSelected);
-                data.setHasLabelsOutside(hasLabelsOutside);
-                data.setHasCenterCircle(hasCenterCircle);
-
-                chart.setPieChartData(data);
-                return view0;
-            case 1:
-                View view1 = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_graph_line, parent, false);
-
-                 boolean hasAxes = true;
-                 boolean hasAxesNames = true;
-                 boolean hasLines = true;
-                 boolean hasPoints = true;
-                 ValueShape shape = ValueShape.CIRCLE;
-                 boolean isFilled = false;
-                 boolean hasLabels1 = false;
-                 boolean isCubic = false;
-                 boolean hasLabelForSelected1 = false;
-
-                return view1;
-            case 2:
-                View view2 = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_graph_bar, parent, false);
-
-                return view2;
-            case 3:
-                View view3 = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_graph_buble, parent, false);
-
-                return view3;
-            case 4:
-                View view4 = LayoutInflater.from(parent.getContext())
+    private View setGraphByTab(ViewGroup parent){
+        View view0 = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_graph_dependency, parent, false);
 
-                return view4;
-            default:
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_graph_bar, parent, false);
+        String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
+                "Sep", "Oct", "Nov", "Dec",};
 
-                return view;
+        String[] days = new String[]{"Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun",};
+
+        LineChartView chartTop;
+        ColumnChartView chartBottom;
+
+        LineChartData lineData;
+        ColumnChartData columnData;
+
+        // *** TOP LINE CHART ***
+        //chartTop = (LineChartView) view0.findViewById(R.id.cha);
+
+        // Generate and set data for line chart
+        //generateInitialLineData();
+
+        // *** BOTTOM COLUMN CHART ***
+
+        //chartBottom = (ColumnChartView) view0.findViewById(R.id.chart_bottom);
+
+        //generateColumnData();
 
 
-        }
+        boolean hasLabels = false;
+        boolean hasLabelsOutside = false;
+        boolean hasCenterCircle = false;
+        boolean hasCenterText1 = false;
+        boolean hasCenterText2 = false;
+        boolean isExploded = false;
+        boolean hasLabelForSelected = false;
+        PieChartView chart;
+        PieChartData data;
 
+        chart = (PieChartView) view0.findViewById(R.id.chartDependency);
+
+        //chart.setOnValueTouchListener(new ValueTouchListener());
+
+        data = new PieChartData(new GenerateData().getDataPieFromBi());
+        data.setHasLabels(hasLabels);
+        data.setHasLabelsOnlyForSelected(hasLabelForSelected);
+        data.setHasLabelsOutside(hasLabelsOutside);
+        data.setHasCenterCircle(hasCenterCircle);
+
+        chart.setPieChartData(data);
+        return view0;
     }
 
 

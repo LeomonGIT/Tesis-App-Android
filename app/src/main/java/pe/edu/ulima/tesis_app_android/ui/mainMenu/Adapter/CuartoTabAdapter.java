@@ -5,10 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.Column;
+import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.ValueShape;
+import lecho.lib.hellocharts.view.ColumnChartView;
 import pe.edu.ulima.tesis_app_android.R;
+import pe.edu.ulima.tesis_app_android.services.GenerateData;
 
 public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -101,7 +107,7 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private View setGraph(ViewGroup parent){
         View view1 = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_graph_line, parent, false);
+                .inflate(R.layout.item_graph_bar, parent, false);
 
         boolean hasAxes = true;
         boolean hasAxesNames = true;
@@ -109,10 +115,37 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         boolean hasPoints = true;
         ValueShape shape = ValueShape.CIRCLE;
         boolean isFilled = false;
-        boolean hasLabels1 = false;
+        boolean hasLabels  = false;
         boolean isCubic = false;
-        boolean hasLabelForSelected1 = false;
+        boolean hasLabelForSelected = false;
+         ColumnChartView chart;
+         ColumnChartData data;
+        List<Column> columns = new ArrayList<Column>();
+        chart = (ColumnChartView) view1.findViewById(R.id.chartBar);
+        Column column = new Column(new GenerateData().getDataBarFromBI());
+        column.setHasLabels(hasLabels);
+        column.setHasLabelsOnlyForSelected(hasLabelForSelected);
+        columns.add(column);
 
+
+
+        data = new ColumnChartData(columns);
+
+        if (hasAxes) {
+            Axis axisX = new Axis();
+            Axis axisY = new Axis().setHasLines(true);
+            if (hasAxesNames) {
+                axisX.setName("Eje X");
+                axisY.setName("Eje Y");
+            }
+            data.setAxisXBottom(axisX);
+            data.setAxisYLeft(axisY);
+        } else {
+            data.setAxisXBottom(null);
+            data.setAxisYLeft(null);
+        }
+
+        chart.setColumnChartData(data);
         return view1;
 
 

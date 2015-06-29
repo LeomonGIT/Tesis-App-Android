@@ -22,8 +22,8 @@ import pe.edu.ulima.tesis_app_android.ui.mainMenu.fragment.ReportTabFragment4;
 
 public class MainMenuActivity extends AppCompatActivity {
     private MaterialViewPager mViewPager;
-    private DrawerLayout mDrawer;
-    private ActionBarDrawerToggle mDrawerToggle;
+    //private DrawerLayout mDrawer;
+    //private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
     Services servicies;
     String[] titles;
@@ -38,7 +38,7 @@ public class MainMenuActivity extends AppCompatActivity {
         mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
 
         toolbar = mViewPager.getToolbar();
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -53,8 +53,8 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         }
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
-        mDrawer.setDrawerListener(mDrawerToggle);
+        //mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
+        //mDrawer.setDrawerListener(mDrawerToggle);
 
         mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 
@@ -140,7 +140,7 @@ public class MainMenuActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
+        //mDrawerToggle.syncState();
     }
 
 }

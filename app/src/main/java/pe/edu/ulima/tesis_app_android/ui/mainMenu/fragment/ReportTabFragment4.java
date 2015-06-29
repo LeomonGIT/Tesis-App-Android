@@ -18,6 +18,7 @@ import java.util.List;
 import lecho.lib.hellocharts.listener.PieChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.SliceValue;
 import pe.edu.ulima.tesis_app_android.R;
+import pe.edu.ulima.tesis_app_android.ui.mainMenu.Adapter.PrimerTabAdapter;
 import pe.edu.ulima.tesis_app_android.ui.mainMenu.Adapter.QuintoTabAdapter;
 
 

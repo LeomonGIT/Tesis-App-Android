@@ -157,8 +157,8 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             Axis axisX = new Axis();
             Axis axisY = new Axis().setHasLines(true);
             if (hasAxesNames) {
-                axisX.setName("Axis X");
-                axisY.setName("Axis Y");
+                axisX.setName("Eje X");
+                axisY.setName("Eje Y");
             }
             data.setAxisXBottom(axisX);
             data.setAxisYLeft(axisY);
