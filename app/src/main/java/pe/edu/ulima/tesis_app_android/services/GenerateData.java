@@ -67,14 +67,13 @@ public class GenerateData {
     }
 
 
-    public List<SubcolumnValue> getDataBarFromBI() {
+    public List<Column> getDataBarFromBI() {
 
         int numSubcolumns = 1;
         int numColumns = 8;
         // Column can have many subcolumns, here by default I use 1 subcolumn in each of 8 columns.
-
         List<Column> columns = new ArrayList<Column>();
-        List<SubcolumnValue> values = new ArrayList<SubcolumnValue>();
+        List<SubcolumnValue> values;
         for (int i = 0; i < numColumns; ++i) {
 
             values = new ArrayList<SubcolumnValue>();
@@ -82,8 +81,11 @@ public class GenerateData {
                 values.add(new SubcolumnValue((float) Math.random() * 50f + 5, ChartUtils.pickColor()));
             }
 
-
+            Column column = new Column(values);
+            column.setHasLabels(true);
+            column.setHasLabelsOnlyForSelected(true);
+            columns.add(column);
         }
-        return values;
+        return columns;
     }
 }

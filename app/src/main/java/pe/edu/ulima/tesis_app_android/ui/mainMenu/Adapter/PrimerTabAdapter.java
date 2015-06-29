@@ -165,7 +165,7 @@ public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
     private View setLabels(ViewGroup parent){
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_label, parent, false);
+                .inflate(R.layout.item_label_pie, parent, false);
 
         Button lunes = (Button) view.findViewById(R.id.colorLunes);
         Button martes = (Button) view.findViewById(R.id.colorMartes);

@@ -111,21 +111,11 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         boolean hasAxes = true;
         boolean hasAxesNames = true;
-        boolean hasLines = true;
-        boolean hasPoints = true;
-        ValueShape shape = ValueShape.CIRCLE;
-        boolean isFilled = false;
-        boolean hasLabels  = false;
-        boolean isCubic = false;
-        boolean hasLabelForSelected = false;
          ColumnChartView chart;
          ColumnChartData data;
-        List<Column> columns = new ArrayList<Column>();
+
         chart = (ColumnChartView) view1.findViewById(R.id.chartBar);
-        Column column = new Column(new GenerateData().getDataBarFromBI());
-        column.setHasLabels(hasLabels);
-        column.setHasLabelsOnlyForSelected(hasLabelForSelected);
-        columns.add(column);
+        List<Column> columns = new GenerateData().getDataBarFromBI();
 
 
 
