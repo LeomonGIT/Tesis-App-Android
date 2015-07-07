@@ -5,14 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.BubbleChartData;
+import lecho.lib.hellocharts.model.BubbleValue;
 import lecho.lib.hellocharts.model.ValueShape;
+import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.BubbleChartView;
 import pe.edu.ulima.tesis_app_android.R;
-import pe.edu.ulima.tesis_app_android.services.GenerateData;
+import pe.edu.ulima.tesis_app_android.services.VariablesGlobales;
 
 public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -102,13 +106,13 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-
+    //******VISTA DEL GRAFICO**************
+    VariablesGlobales global = new VariablesGlobales();
     private View setGraph(ViewGroup parent){
         View view1 = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_graph_buble, parent, false);
 
 
-          final int BUBBLES_NUM = 8;
 
          BubbleChartView chart;
          BubbleChartData data;
@@ -119,19 +123,29 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
          boolean hasLabelForSelected = false;
 
         chart = (BubbleChartView) view1.findViewById(R.id.chartBuble);
-
-        data = new BubbleChartData(new GenerateData().getDataBubleFromBI());
+        int BUBBLES_NUM = 5;
+        //float[][] data= getDataBubleFromBI();
+        List<BubbleValue> values = new ArrayList<BubbleValue>();
+        List<AxisValue> axisX = new ArrayList<AxisValue>();
+        String[] vendedor ={"A","B","C","D","E"};
+        for (int i = 0; i < BUBBLES_NUM; ++i) {
+            //BubbleValue value = new BubbleValue(i, data[i][0], data[i][1]);
+            BubbleValue value = new BubbleValue(i, (float) Math.random() * 100, (float) Math.random() * 1000);
+            value.setColor(ChartUtils.pickColor());
+            value.setShape(shape);
+            values.add(value);
+            axisX.add(new AxisValue(i).setLabel(vendedor[i]));
+        }
+        data = new BubbleChartData(values);
         data.setHasLabels(hasLabels);
         data.setHasLabelsOnlyForSelected(hasLabelForSelected);
 
         if (hasAxes) {
-            Axis axisX = new Axis();
             Axis axisY = new Axis().setHasLines(true);
             if (hasAxesNames) {
-                axisX.setName("Eje X");
-                axisY.setName("Eje Y");
+                axisY.setName("MONTO DE VENTAS");
             }
-            data.setAxisXBottom(axisX);
+            data.setAxisXBottom(new Axis(axisX).setName("VENDEDOR"));
             data.setAxisYLeft(axisY);
         } else {
             data.setAxisXBottom(null);
@@ -144,5 +158,6 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     }
 
+    //******VISTA DE LOS DATOS**************
 
 }

@@ -1,11 +1,10 @@
 package pe.edu.ulima.tesis_app_android.ui.mainMenu;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -13,7 +12,7 @@ import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 
 import pe.edu.ulima.tesis_app_android.R;
-import pe.edu.ulima.tesis_app_android.services.Services;
+import pe.edu.ulima.tesis_app_android.services.VariablesGlobales;
 import pe.edu.ulima.tesis_app_android.ui.mainMenu.fragment.ReportTabFragment;
 import pe.edu.ulima.tesis_app_android.ui.mainMenu.fragment.ReportTabFragment1;
 import pe.edu.ulima.tesis_app_android.ui.mainMenu.fragment.ReportTabFragment2;
@@ -25,7 +24,7 @@ public class MainMenuActivity extends AppCompatActivity {
     //private DrawerLayout mDrawer;
     //private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
-    Services servicies;
+    VariablesGlobales servicies;
     String[] titles;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +32,8 @@ public class MainMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
         setTitle("");
 
-        servicies = new Services();
-        titles = servicies.getTitle();
+        servicies = new VariablesGlobales();
+        titles = servicies.getTitles();
         mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
 
         toolbar = mViewPager.getToolbar();
@@ -133,7 +132,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
-
+        mViewPager.getPagerTitleStrip().setTextColor(Color.parseColor("#ffffff"));
         mViewPager.getViewPager().setCurrentItem(1);
     }
 

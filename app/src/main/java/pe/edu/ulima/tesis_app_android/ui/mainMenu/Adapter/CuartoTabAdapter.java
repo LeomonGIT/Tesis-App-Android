@@ -1,5 +1,6 @@
 package pe.edu.ulima.tesis_app_android.ui.mainMenu.Adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
-import lecho.lib.hellocharts.model.ValueShape;
+import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.view.ColumnChartView;
 import pe.edu.ulima.tesis_app_android.R;
-import pe.edu.ulima.tesis_app_android.services.GenerateData;
+import pe.edu.ulima.tesis_app_android.services.VariablesGlobales;
 
 public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -55,13 +57,6 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
         switch (viewType) {
-            /*case TYPE_BUTTON:{
-                view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_options, parent, false);
-                return new RecyclerView.ViewHolder(view) {
-                };
-            }*/
-
             case TYPE_GRAPH: {
                 view = setGraph(parent);
 
@@ -82,7 +77,6 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 return new RecyclerView.ViewHolder(view) {
                 };
             }
-
         }
         return null;
     }
@@ -91,8 +85,6 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
-            /*case TYPE_BUTTON:
-                break;*/
             case TYPE_GRAPH:
                 break;
             case TYPE_LABEL:
@@ -105,6 +97,9 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
+    //**************************VISTA DEL GRAFICO************************
+
+    VariablesGlobales global = new VariablesGlobales();
     private View setGraph(ViewGroup parent){
         View view1 = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_graph_bar, parent, false);
@@ -115,20 +110,34 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
          ColumnChartData data;
 
         chart = (ColumnChartView) view1.findViewById(R.id.chartBar);
-        List<Column> columns = new GenerateData().getDataBarFromBI();
+        List<AxisValue> axisX = new ArrayList<AxisValue>();
+        int numSubcolumns = 1;
+        int numColumns = 12;
+        List<Column> columns = new ArrayList<Column>();
+        List<SubcolumnValue> values;
+        for (int i = 0; i < numColumns; ++i) {
 
+            values = new ArrayList<SubcolumnValue>();
+            for (int j = 0; j < numSubcolumns; ++j) {
+                values.add(new SubcolumnValue((float) Math.random() * 50f + 5,
+                        Color.parseColor(global.getColor()[i])));
 
+            }
+            axisX.add(new AxisValue(i).setLabel(global.getMonths()[i]));
+            Column column = new Column(values);
+            column.setHasLabels(true);
+            column.setHasLabelsOnlyForSelected(true);
+            columns.add(column);
+        }
 
         data = new ColumnChartData(columns);
 
         if (hasAxes) {
-            Axis axisX = new Axis();
             Axis axisY = new Axis().setHasLines(true);
             if (hasAxesNames) {
-                axisX.setName("Eje X");
-                axisY.setName("Eje Y");
+                axisY.setName("Prom. Stock Perdido");
             }
-            data.setAxisXBottom(axisX);
+            data.setAxisXBottom(new Axis(axisX).setName("MESES"));
             data.setAxisYLeft(axisY);
         } else {
             data.setAxisXBottom(null);
@@ -141,5 +150,6 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     }
 
+    //**************************VISTA DE LOS DATOS************************
 
 }

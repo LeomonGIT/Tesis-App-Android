@@ -9,16 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.LineChartView;
-import lecho.lib.hellocharts.view.PieChartView;
 import pe.edu.ulima.tesis_app_android.R;
 import pe.edu.ulima.tesis_app_android.services.GenerateData;
+import pe.edu.ulima.tesis_app_android.services.VariablesGlobales;
 
 public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -109,6 +109,8 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
+    //***** VISTA DEL GRAFICO *****
+    VariablesGlobales global = new VariablesGlobales();
     private View setGraph(ViewGroup parent){
         View view1 = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_graph_line, parent, false);
@@ -126,10 +128,12 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
          LineChartData data;
         int numberOfLines = 1;
         int maxNumberOfLines = 4;
-        int numberOfPoints = 12;
-
+        int numberOfPoints = 6;
 
         chart = (LineChartView) view1.findViewById(R.id.chartLine);
+
+
+        List<AxisValue> axisX = new ArrayList<AxisValue>();
         List<Line> lines = new ArrayList<Line>();
         for (int i = 0; i < numberOfLines; ++i) {
 
@@ -137,6 +141,7 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             List<PointValue> values = new ArrayList<PointValue>();
             for (int j = 0; j < numberOfPoints; ++j) {
                 values.add(new PointValue(j, numberTabs[i][j]));
+                axisX.add(new AxisValue(j).setLabel(global.getDays()[j]));
             }
 
             Line line = new Line(values);
@@ -154,13 +159,11 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         data = new LineChartData(lines);
 
         if (hasAxes) {
-            Axis axisX = new Axis();
             Axis axisY = new Axis().setHasLines(true);
             if (hasAxesNames) {
-                axisX.setName("Eje X");
-                axisY.setName("Eje Y");
+                axisY.setName("Horas");
             }
-            data.setAxisXBottom(axisX);
+            data.setAxisXBottom(new Axis(axisX));
             data.setAxisYLeft(axisY);
         } else {
             data.setAxisXBottom(null);
@@ -174,5 +177,6 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     }
 
+    //*************VISTA DE LOS DATOS***********
 
 }

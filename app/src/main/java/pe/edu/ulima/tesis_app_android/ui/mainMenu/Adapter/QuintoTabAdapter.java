@@ -16,22 +16,18 @@ import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.model.SubcolumnValue;
-import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.ColumnChartView;
 import lecho.lib.hellocharts.view.LineChartView;
-import lecho.lib.hellocharts.view.PieChartView;
 import pe.edu.ulima.tesis_app_android.R;
-import pe.edu.ulima.tesis_app_android.services.GenerateData;
+import pe.edu.ulima.tesis_app_android.services.VariablesGlobales;
 
 public class QuintoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<Object> contents;
-    static int position;
 
     //static final int TYPE_BUTTON = 0;
     static final int TYPE_GRAPH = 0;
@@ -117,10 +113,8 @@ public class QuintoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
-            "Sep", "Oct", "Nov", "Dec",};
-
-    String[] days = new String[]{"Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun",};
+    //*********VISTA DE GRAFICO*********
+    VariablesGlobales global=new VariablesGlobales();
 
     LineChartView chartTop;
     ColumnChartView chartBottom;
@@ -133,28 +127,24 @@ public class QuintoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         .inflate(R.layout.item_graph_dependency, parent, false);
 
 
-        // *** TOP LINE CHART ***
+        // *** GRAPFICO DE ARRIBA ***
         chartTop = (LineChartView) view0.findViewById(R.id.chart_top);
-
-        // Generate and set data for line chart
         generateInitialLineData();
 
-        // *** BOTTOM COLUMN CHART ***
-
+        // *** GRAFICO DE ABAJO***
         chartBottom = (ColumnChartView) view0.findViewById(R.id.chart_bottom);
-
         generateColumnData();
+
         return view0;
     }
 
     private void generateInitialLineData() {
-        int numValues = 7;
-
+        int numValues = 6;
         List<AxisValue> axisValues = new ArrayList<AxisValue>();
         List<PointValue> values = new ArrayList<PointValue>();
         for (int i = 0; i < numValues; ++i) {
             values.add(new PointValue(i, 0));
-            axisValues.add(new AxisValue(i).setLabel(days[i]));
+            axisValues.add(new AxisValue(i).setLabel(global.getDays()[i]));
         }
 
         Line line = new Line(values);
@@ -183,7 +173,7 @@ public class QuintoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private void generateColumnData() {
 
         int numSubcolumns = 1;
-        int numColumns = months.length;
+        int numColumns = global.getMonths().length;
 
         List<AxisValue> axisValues = new ArrayList<AxisValue>();
         List<Column> columns = new ArrayList<Column>();
@@ -195,7 +185,7 @@ public class QuintoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 values.add(new SubcolumnValue((float) Math.random() * 50f + 5, ChartUtils.pickColor()));
             }
 
-            axisValues.add(new AxisValue(i).setLabel(months[i]));
+            axisValues.add(new AxisValue(i).setLabel(global.getMonths()[i]));
 
             columns.add(new Column(values).setHasLabelsOnlyForSelected(true));
         }
@@ -257,4 +247,7 @@ public class QuintoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         // Start new data animation with 300ms duration;
         chartTop.startDataAnimation(300);
     }
+
+
+    //*********VISTA DE DATOS*********
 }
