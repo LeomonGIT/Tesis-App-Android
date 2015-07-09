@@ -24,9 +24,8 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     //static final int TYPE_BUTTON = 0;
     static final int TYPE_GRAPH = 0;
-    static final int TYPE_LABEL = 1;
-    static final int TYPE_DATA = 2;
-    static final int TYPE_CELL = 3;
+    static final int TYPE_DATA = 1;
+    static final int TYPE_CELL = 2;
 
     public CuartoTabAdapter(List<Object> contents) {
         this.contents = contents;
@@ -38,8 +37,6 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             case 0:
                 return TYPE_GRAPH;
             case 1:
-                return TYPE_LABEL;
-            case 2:
                 return TYPE_DATA;
             default:
                 return TYPE_CELL;
@@ -54,23 +51,14 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
-
-
         switch (viewType) {
-            case TYPE_GRAPH: {
+            case TYPE_GRAPH:
+            {
                 view = setGraph(parent);
 
                 return new RecyclerView.ViewHolder(view) {
                 };
             }
-
-            case TYPE_LABEL: {
-                view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_label, parent, false);
-                return new RecyclerView.ViewHolder(view) {
-                };
-            }
-
             case TYPE_DATA: {
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_datos, parent, false);
@@ -86,8 +74,6 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case TYPE_GRAPH:
-                break;
-            case TYPE_LABEL:
                 break;
             case TYPE_DATA:
                 break;

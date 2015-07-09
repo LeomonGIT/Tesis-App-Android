@@ -44,7 +44,7 @@ public class ReportTabFragment1 extends Fragment implements PieChartOnValueSelec
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        for (int i = 0; i < 3; ++i)
+        for (int i = 0; i < 2; ++i)
             mContentItems.add(new Object());
 
 

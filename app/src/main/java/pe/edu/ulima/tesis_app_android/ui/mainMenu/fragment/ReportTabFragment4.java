@@ -18,7 +18,6 @@ import java.util.List;
 import lecho.lib.hellocharts.listener.PieChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.SliceValue;
 import pe.edu.ulima.tesis_app_android.R;
-import pe.edu.ulima.tesis_app_android.ui.mainMenu.Adapter.PrimerTabAdapter;
 import pe.edu.ulima.tesis_app_android.ui.mainMenu.Adapter.QuintoTabAdapter;
 
 
@@ -47,7 +46,7 @@ public class ReportTabFragment4 extends Fragment implements PieChartOnValueSelec
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        for (int i = 0; i < 3; ++i)
+        for (int i = 0; i < 2; ++i)
             mContentItems.add(new Object());
                 mAdapter = new RecyclerViewMaterialAdapter(new QuintoTabAdapter(mContentItems));
 
