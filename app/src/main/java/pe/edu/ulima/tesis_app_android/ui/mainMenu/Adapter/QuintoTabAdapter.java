@@ -76,7 +76,7 @@ public class QuintoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
             case TYPE_DATA: {
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_datos, parent, false);
+                        .inflate(R.layout.item_table_tab5, parent, false);
                 return new RecyclerView.ViewHolder(view) {
                 };
             }

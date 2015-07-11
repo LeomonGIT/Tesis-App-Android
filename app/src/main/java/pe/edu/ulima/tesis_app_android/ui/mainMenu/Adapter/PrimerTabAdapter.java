@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import lecho.lib.hellocharts.model.BubbleValue;
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
@@ -78,7 +76,7 @@ public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             case TYPE_DATA: {
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_datos, parent, false);
+                        .inflate(R.layout.item_table_tab1, parent, false);
                 return new RecyclerView.ViewHolder(view) {
                 };
             }
