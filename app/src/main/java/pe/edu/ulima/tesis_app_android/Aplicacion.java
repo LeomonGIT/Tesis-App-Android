@@ -11,7 +11,6 @@ public class Aplicacion extends Application {
         super.onCreate();
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
-
-        Parse.initialize(this,"XFTLwHxKt1zFZhVRu8DL5vhc5dmrU0RI7OaS1A0H", "jaqFKTG1IMzI055UZTeTnsWWX0l3wULYtq3VhR7G");
+        Parse.initialize(this, "CentaHKEzjBROCfkWrKZQtIASMw0aYxQi7ERxqn3", "P36hT4pUaYKAz11MqVPIyUEKMK7g01dTqMKN0Ka2");
     }
 }

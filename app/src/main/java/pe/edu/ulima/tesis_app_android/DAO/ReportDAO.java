@@ -1,4 +1,4 @@
-package pe.edu.ulima.tesis_app_android.daos;
+package pe.edu.ulima.tesis_app_android.DAO;
 
 
 public class ReportDAO {
