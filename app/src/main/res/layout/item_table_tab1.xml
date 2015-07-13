@@ -55,15 +55,17 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Lunes"
                         style="@style/BodyText" />
-                    <TextView android:text="152"
+                    <TextView android:text="0"
                         style="@style/BodyText"
+                        android:id="@+id/dataLunes"
                         android:layout_weight="1" />
                 </TableRow>
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Martes"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
                         style="@style/BodyText"
+                        android:id="@+id/dataMartes"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
                     style="@style/BodyText" /-->
@@ -71,8 +73,9 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Miercoles"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
                         style="@style/BodyText"
+                        android:id="@+id/dataMiercoles"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
                     style="@style/BodyText" /-->
@@ -80,8 +83,9 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Jueves"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
                         style="@style/BodyText"
+                        android:id="@+id/dataJueves"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
                     style="@style/BodyText" /-->
@@ -89,8 +93,9 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Viernes"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
                         style="@style/BodyText"
+                        android:id="@+id/dataViernes"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
                     style="@style/BodyText" /-->
@@ -98,8 +103,9 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Sabado"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
                         style="@style/BodyText"
+                        android:id="@+id/dataSabado"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
                     style="@style/BodyText" /-->

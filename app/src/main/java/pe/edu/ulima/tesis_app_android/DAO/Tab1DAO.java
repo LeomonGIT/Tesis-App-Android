@@ -8,6 +8,11 @@ public class Tab1DAO {
     private String dia;
     private int dato;
 
+    public Tab1DAO(int dato,String dia) {
+        this.dia = dia;
+        this.dato = dato;
+    }
+
     public String getDia() {
         return dia;
     }
@@ -22,5 +27,13 @@ public class Tab1DAO {
 
     public void setDato(int dato) {
         this.dato = dato;
+    }
+
+    @Override
+    public String toString() {
+        return "Tab1DAO{" +
+                "dia='" + dia + '\'' +
+                ", dato=" + dato +
+                '}';
     }
 }

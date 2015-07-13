@@ -39,6 +39,18 @@ public class MainMenuActivity extends AppCompatActivity {
         toolbar = mViewPager.getToolbar();
         //mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+
+        iniciarTodo();
+
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        //mDrawerToggle.syncState();
+    }
+
+    private void iniciarTodo(){
         if (toolbar != null) {
             setSupportActionBar(toolbar);
 
@@ -135,11 +147,4 @@ public class MainMenuActivity extends AppCompatActivity {
         mViewPager.getPagerTitleStrip().setTextColor(Color.parseColor("#ffffff"));
         mViewPager.getViewPager().setCurrentItem(1);
     }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        //mDrawerToggle.syncState();
-    }
-
 }

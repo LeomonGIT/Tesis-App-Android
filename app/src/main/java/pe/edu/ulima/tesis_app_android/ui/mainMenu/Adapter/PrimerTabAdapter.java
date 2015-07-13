@@ -7,16 +7,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
+import pe.edu.ulima.tesis_app_android.DAO.Tab1DAO;
 import pe.edu.ulima.tesis_app_android.R;
+import pe.edu.ulima.tesis_app_android.services.ConectorBD;
+import pe.edu.ulima.tesis_app_android.services.ConectorBDInterface;
+import pe.edu.ulima.tesis_app_android.services.ControllerTabs;
 import pe.edu.ulima.tesis_app_android.services.GenerateData;
 
-public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ConectorBDInterface{
 
     List<Object> contents;
 
@@ -75,9 +82,10 @@ public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
 
             case TYPE_DATA: {
-                view = LayoutInflater.from(parent.getContext())
+                viewTable  = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_table_tab1, parent, false);
-                return new RecyclerView.ViewHolder(view) {
+
+                return new RecyclerView.ViewHolder(viewTable) {
                 };
             }
 
@@ -107,6 +115,7 @@ public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     ImageButton btnUpdate;
     PieChartData data;
     PieChartView chart;
+    ConectorBD conector;
 
     private View setGraph(ViewGroup parent){
                 View view0 = LayoutInflater.from(parent.getContext())
@@ -120,6 +129,7 @@ public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 boolean isExploded = false;
                 boolean hasLabelForSelected = false;
 
+        initializeData();
         chart = (PieChartView) view0.findViewById(R.id.chartPie);
         btnUpdate = (ImageButton) view0.findViewById(R.id.btnUpdatePie);
 
@@ -131,36 +141,51 @@ public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 //chart.setOnValueTouchListener(new ValueTouchListener());
                 values =new GenerateData().getDataPieFromBi();
                 data = new PieChartData(values);
-                data.setHasLabels(hasLabels);
+        data.setHasLabels(hasLabels);
                 data.setHasLabelsOnlyForSelected(hasLabelForSelected);
-                data.setHasLabelsOutside(hasLabelsOutside);
-                data.setHasCenterCircle(hasCenterCircle);
+        data.setHasLabelsOutside(hasLabelsOutside);
+        data.setHasCenterCircle(hasCenterCircle);
 
-                chart.setPieChartData(data);
-
+        chart.setPieChartData(data);
+        final View vista = parent;
         //boton actualizar
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnUpdate();
+                updateData();
+                Toast.makeText(vista.getContext(), "Actualizado", Toast.LENGTH_SHORT).show();
 
             }
         });
-
         return view0;
 
 
     }
 
-    private void btnUpdate(){
-        Log.e("btnUpdate","actualizando...");
-        for (SliceValue value : data.getValues()) {
-            value.setTarget((float) Math.random() * 30 + 15);
+    private void initializeData(){
+        conector = new ConectorBD(this);
+        conector.calledFromConector();
+    }
+
+    private void updateData(){
+        initializeData();
+    }
+    private void updateGraph(){
+        Log.e("btnUpdate", "actualizando...");
+        for (int i=0;i< data.getValues().size();i++) {
+            SliceValue value=data.getValues().get(i);
+            value.setTarget(ControllerTabs.getInstance().getArrayTab1().get(i).getDato());
         }
         chart.startDataAnimation();
-
-
     }
+
+    @Override
+    public void getDataPie(){
+        updateGraph();
+        updateTable();
+        Log.e("callBack", "finished");
+    }
+    ////************************************** LABEL CARD ******************
     private View setLabels(ViewGroup parent){
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_label_pie, parent, false);
@@ -182,4 +207,22 @@ public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return view;
     }
 
+    ////************************************** DATA CARD ******************
+    View viewTable;
+    private void updateTable() {
+        TextView dataLunes = (TextView) viewTable.findViewById(R.id.dataLunes);
+        TextView dataMartes = (TextView) viewTable.findViewById(R.id.dataMartes);
+        TextView dataMiercoles = (TextView) viewTable.findViewById(R.id.dataMiercoles);
+        TextView dataJueves = (TextView) viewTable.findViewById(R.id.dataJueves);
+        TextView dataViernes = (TextView) viewTable.findViewById(R.id.dataViernes);
+        TextView dataSabado = (TextView) viewTable.findViewById(R.id.dataSabado);
+
+        ArrayList<Tab1DAO> data = ControllerTabs.getInstance().getArrayTab1();
+        dataLunes.setText(""+data.get(0).getDato());
+        dataMartes.setText(""+data.get(1).getDato());
+        dataMiercoles.setText(""+data.get(2).getDato());
+        dataJueves.setText(""+data.get(3).getDato());
+        dataViernes.setText(""+data.get(4).getDato());
+        dataSabado.setText(""+data.get(5).getDato());
+    }
 }

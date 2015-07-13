@@ -18,17 +18,14 @@ import lecho.lib.hellocharts.util.ChartUtils;
 public class GenerateData {
 
     //logica usar data del webservice BI
-
-
-
     VariablesGlobales global = new VariablesGlobales();
+    ControllerTabs controllerTabs = ControllerTabs.getInstance();
+
     public List<SliceValue> getDataPieFromBi(){
         List<SliceValue> values = new ArrayList<SliceValue>();
-
         int numValues = 6;
-
         for (int i = 0; i < numValues; ++i) {
-            SliceValue sliceValue = new SliceValue((float) Math.random() * 30 + 15);
+            SliceValue sliceValue = new SliceValue((float) Math.random() * 1 + 1);
             sliceValue.setColor(Color.parseColor(global.getColor()[i]));
             values.add(sliceValue);
         }

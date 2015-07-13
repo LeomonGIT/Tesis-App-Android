@@ -1,5 +1,7 @@
 package pe.edu.ulima.tesis_app_android.services;
 
+import java.util.ArrayList;
+
 import pe.edu.ulima.tesis_app_android.DAO.Tab1DAO;
 
 /**
@@ -8,7 +10,7 @@ import pe.edu.ulima.tesis_app_android.DAO.Tab1DAO;
 public class ControllerTabs {
 
     private static ControllerTabs instance;
-    private Tab1DAO tab1;
+    private ArrayList<Tab1DAO> arrayTab1;
     public static ControllerTabs getInstance(){
         if(instance==null)
             instance = new ControllerTabs();
@@ -16,14 +18,14 @@ public class ControllerTabs {
     }
 
     public ControllerTabs() {
-        tab1 = new Tab1DAO();
+        arrayTab1 = new ArrayList<>();
     }
 
-    public Tab1DAO getTab1() {
-        return tab1;
+    public ArrayList<Tab1DAO> getArrayTab1() {
+        return arrayTab1;
     }
 
-    public void setTab1(Tab1DAO tab1) {
-        this.tab1 = tab1;
+    public void setArrayTab1(ArrayList<Tab1DAO> arrayTab1) {
+        this.arrayTab1 = arrayTab1;
     }
 }
