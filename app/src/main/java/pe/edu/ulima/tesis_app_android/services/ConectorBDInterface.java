@@ -5,5 +5,5 @@ package pe.edu.ulima.tesis_app_android.services;
  */
 public interface ConectorBDInterface {
 
-    void getDataPie();
+    void getDataFromBI();
 }

@@ -180,7 +180,7 @@ public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public void getDataPie(){
+    public void getDataFromBI(){
         updateGraph();
         updateTable();
         Log.e("callBack", "finished");

@@ -1,6 +1,7 @@
 package pe.edu.ulima.tesis_app_android.ui.mainMenu.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,12 @@ import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.LineChartView;
 import pe.edu.ulima.tesis_app_android.R;
+import pe.edu.ulima.tesis_app_android.services.ConectorBD;
+import pe.edu.ulima.tesis_app_android.services.ConectorBDInterface;
 import pe.edu.ulima.tesis_app_android.services.GenerateData;
 import pe.edu.ulima.tesis_app_android.services.VariablesGlobales;
 
-public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ConectorBDInterface{
 
     List<Object> contents;
 
@@ -52,7 +55,7 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
-
+        initializeData();
 
         switch (viewType) {
             /*case TYPE_BUTTON:{
@@ -96,6 +99,7 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
+    LineChartData data;
     //***** VISTA DEL GRAFICO *****
     VariablesGlobales global = new VariablesGlobales();
     private View setGraph(ViewGroup parent){
@@ -112,7 +116,6 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         boolean isCubic = false;
         boolean hasLabelForSelected1 = false;
         LineChartView chart;
-         LineChartData data;
         int numberOfLines = 1;
         int maxNumberOfLines = 4;
         int numberOfPoints = 6;
@@ -162,6 +165,29 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return view1;
 
 
+    }
+    ConectorBD conector;
+    private void initializeData(){
+        conector = new ConectorBD(this);
+        conector.calledFromConector();
+    }
+    private void updateData(){
+        initializeData();
+    }
+    private void updateGraph(){
+        Log.e("btnUpdate", "actualizando...");
+        /*for (int i=0;i< data.getLines().get(0).getValues().size();i++) {
+            PointValue value=data.getLines().get(0).getValues().get(i);
+            value.setTarget(ControllerTabs.getInstance().getArrayTab2().get(i).getDato());
+        }
+        chart.startDataAnimation();*/
+    }
+
+    @Override
+    public void getDataFromBI(){
+        updateGraph();
+        //updateTable();
+        Log.e("callBack", "finished");
     }
 
     //*************VISTA DE LOS DATOS***********

@@ -7,6 +7,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pe.edu.ulima.tesis_app_android.DAO.Tab1DAO;
@@ -27,13 +28,15 @@ public class ConectorBD{
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                     if(e==null || list != null){
+                        ArrayList<Tab1DAO> temp = new ArrayList<>();
                         for(ParseObject object : list){
                             Tab1DAO tab1 =  new Tab1DAO(Integer.parseInt(object.get("Data").toString()),
                                     object.get("Dia").toString());
-                            controller.getArrayTab1().add(tab1);
+                            temp.add(tab1);
                             Log.e("Add to array is:" , tab1.toString());
                         }
-                        conector.getDataPie();
+                        controller.setArrayTab1(temp);
+                        conector.getDataFromBI();
                     }
 
 
