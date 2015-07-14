@@ -113,9 +113,9 @@ public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     List<SliceValue> values;
     ImageButton btnUpdate;
+    ConectorBD conector;
     PieChartData data;
     PieChartView chart;
-    ConectorBD conector;
 
     private View setGraph(ViewGroup parent){
                 View view0 = LayoutInflater.from(parent.getContext())

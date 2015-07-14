@@ -1,9 +1,12 @@
 package pe.edu.ulima.tesis_app_android.ui.mainMenu.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +15,18 @@ import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.BubbleChartData;
 import lecho.lib.hellocharts.model.BubbleValue;
+import lecho.lib.hellocharts.model.Line;
+import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.BubbleChartView;
 import pe.edu.ulima.tesis_app_android.R;
+import pe.edu.ulima.tesis_app_android.services.ConectorBD;
+import pe.edu.ulima.tesis_app_android.services.ConectorBDInterface;
 import pe.edu.ulima.tesis_app_android.services.VariablesGlobales;
 
-public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ConectorBDInterface{
 
     List<Object> contents;
 
@@ -107,6 +115,8 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     //******VISTA DEL GRAFICO**************
+    private BubbleChartData data;
+    BubbleChartView chart;
     VariablesGlobales global = new VariablesGlobales();
     private View setGraph(ViewGroup parent){
         View view1 = LayoutInflater.from(parent.getContext())
@@ -114,8 +124,6 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
 
-         BubbleChartView chart;
-         BubbleChartData data;
          boolean hasAxes = true;
          boolean hasAxesNames = true;
          ValueShape shape = ValueShape.CIRCLE;
@@ -153,9 +161,45 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         chart.setBubbleChartData(data);
+        //boton actualizar
+        final View vista = parent;
+        ImageButton btnUpdate = (ImageButton) view1.findViewById(R.id.btnUpdate);
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateData();
+                Toast.makeText(vista.getContext(), "Actualizado", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         return view1;
 
-
+    }
+    ConectorBD conector;
+    private void initializeData(){
+        conector = new ConectorBD(this);
+        conector.getDataForTab2();
+    }
+    private void updateData(){
+        initializeData();
+    }
+    private void updateGraph(){
+        Log.e("btnUpdate", "actualizando...");
+        for (BubbleValue value : data.getValues()) {
+            value.setTarget(value.getX() + (float) Math.random() * 4 * getSign(), (float) Math.random() * 100,
+                    (float) Math.random() * 1000);
+        }
+        chart.startDataAnimation();
+    }
+    private int getSign() {
+        int[] sign = new int[]{-1, 1};
+        return sign[Math.round((float) Math.random())];
+    }
+    @Override
+    public void getDataFromBI(){
+        updateGraph();
+        //updateTable();
+        Log.e("callBack", "finished");
     }
 
     //******VISTA DE LOS DATOS**************

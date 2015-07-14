@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,9 +102,11 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
     LineChartData data;
+    ConectorBD conector;
     //***** VISTA DEL GRAFICO *****
+    LineChartView chart;
     VariablesGlobales global = new VariablesGlobales();
-    private View setGraph(ViewGroup parent){
+    private View setGraph(ViewGroup parent) {
         View view1 = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_graph_line, parent, false);
 
@@ -115,7 +119,6 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         boolean hasLabels1 = false;
         boolean isCubic = false;
         boolean hasLabelForSelected1 = false;
-        LineChartView chart;
         int numberOfLines = 1;
         int maxNumberOfLines = 4;
         int numberOfPoints = 6;
@@ -162,25 +165,38 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         data.setBaseValue(Float.NEGATIVE_INFINITY);
         chart.setLineChartData(data);
+
+
+        //boton actualizar
+        final View vista = parent;
+        ImageButton btnUpdate = (ImageButton) view1.findViewById(R.id.btnUpdate);
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateData();
+                Toast.makeText(vista.getContext(), "Actualizado", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         return view1;
 
-
     }
-    ConectorBD conector;
     private void initializeData(){
         conector = new ConectorBD(this);
-        conector.calledFromConector();
+        conector.getDataForTab2();
     }
     private void updateData(){
         initializeData();
     }
     private void updateGraph(){
         Log.e("btnUpdate", "actualizando...");
-        /*for (int i=0;i< data.getLines().get(0).getValues().size();i++) {
-            PointValue value=data.getLines().get(0).getValues().get(i);
-            value.setTarget(ControllerTabs.getInstance().getArrayTab2().get(i).getDato());
+        for (Line line : data.getLines()) {
+            for (PointValue value : line.getValues()) {
+                // Here I modify target only for Y values but it is OK to modify X targets as well.
+                value.setTarget(value.getX(), (float) Math.random() * 100);
+            }
         }
-        chart.startDataAnimation();*/
+        chart.startDataAnimation();
     }
 
     @Override

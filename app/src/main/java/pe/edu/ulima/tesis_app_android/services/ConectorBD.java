@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pe.edu.ulima.tesis_app_android.DAO.Tab1DAO;
+import pe.edu.ulima.tesis_app_android.DAO.Tab2DAO;
 
 public class ConectorBD{
 
@@ -40,6 +41,26 @@ public class ConectorBD{
                     }
 
 
+            }
+        });
+    }
+
+    public void getDataForTab2(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Tab2");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if(e==null || list != null){
+                    ArrayList<Tab2DAO> temp = new ArrayList<>();
+                    for(ParseObject object : list){
+                        Tab2DAO tab2 =  new Tab2DAO(Integer.parseInt(object.get("data").toString()),
+                                object.get("dia").toString());
+                        temp.add(tab2);
+                        Log.e("Add to array is:" , tab2.toString());
+                    }
+                    controller.setArrayTab2(temp);
+                    conector.getDataFromBI();
+                }
             }
         });
     }
