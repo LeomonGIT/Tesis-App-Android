@@ -15,16 +15,12 @@ import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.BubbleChartData;
 import lecho.lib.hellocharts.model.BubbleValue;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.BubbleChartView;
 import pe.edu.ulima.tesis_app_android.R;
 import pe.edu.ulima.tesis_app_android.services.ConectorBD;
 import pe.edu.ulima.tesis_app_android.services.ConectorBDInterface;
-import pe.edu.ulima.tesis_app_android.services.VariablesGlobales;
 
 public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ConectorBDInterface{
 
@@ -62,7 +58,7 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
-
+        //initializeData();
 
         switch (viewType) {
             /*case TYPE_BUTTON:{
@@ -121,8 +117,6 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         View view1 = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_graph_buble, parent, false);
 
-
-
          boolean hasAxes = true;
          boolean hasAxesNames = true;
          ValueShape shape = ValueShape.CIRCLE;
@@ -166,7 +160,8 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateData();
+                //updateData();
+                updateGraph();
                 Toast.makeText(vista.getContext(), "Actualizado", Toast.LENGTH_SHORT).show();
 
             }

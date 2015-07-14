@@ -57,7 +57,7 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
-        initializeData();
+        //initializeData();
 
         switch (viewType) {
             /*case TYPE_BUTTON:{
@@ -173,6 +173,7 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //updateData();
                 updateData();
                 Toast.makeText(vista.getContext(), "Actualizado", Toast.LENGTH_SHORT).show();
 
