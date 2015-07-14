@@ -1,9 +1,12 @@
 package pe.edu.ulima.tesis_app_android.ui.mainMenu.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,7 @@ import lecho.lib.hellocharts.gesture.ZoomType;
 import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
+import lecho.lib.hellocharts.model.BubbleValue;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.Line;
@@ -23,9 +27,11 @@ import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.ColumnChartView;
 import lecho.lib.hellocharts.view.LineChartView;
 import pe.edu.ulima.tesis_app_android.R;
+import pe.edu.ulima.tesis_app_android.services.ConectorBD;
+import pe.edu.ulima.tesis_app_android.services.ConectorBDInterface;
 import pe.edu.ulima.tesis_app_android.services.VariablesGlobales;
 
-public class QuintoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class QuintoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ConectorBDInterface{
 
     List<Object> contents;
 
@@ -122,7 +128,46 @@ public class QuintoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         chartBottom = (ColumnChartView) view0.findViewById(R.id.chart_bottom);
         generateColumnData();
 
+        //boton actualizar
+        final View vista = parent;
+        ImageButton btnUpdate = (ImageButton) view0.findViewById(R.id.btnUpdate);
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateData();
+                Toast.makeText(vista.getContext(), "Actualizado", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         return view0;
+
+    }
+    ConectorBD conector;
+    private void initializeData(){
+        conector = new ConectorBD(this);
+        conector.getDataForTab5();
+    }
+    private void updateData(){
+        initializeData();
+    }
+    private void updateGraph(){
+        Log.e("btnUpdate", "actualizando...");
+        for (Column column : columnData.getColumns()) {
+            for (SubcolumnValue value : column.getValues()) {
+                value.setTarget((float) Math.random() * 100);
+            }
+        }
+        chartBottom.startDataAnimation();
+    }
+    private int getSign() {
+        int[] sign = new int[]{-1, 1};
+        return sign[Math.round((float) Math.random())];
+    }
+    @Override
+    public void getDataFromBI(){
+        updateGraph();
+        //updateTable();
+        Log.e("callBack", "finished");
     }
 
     private void generateInitialLineData() {

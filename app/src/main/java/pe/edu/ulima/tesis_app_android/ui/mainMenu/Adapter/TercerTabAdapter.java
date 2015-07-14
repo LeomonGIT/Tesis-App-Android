@@ -117,7 +117,6 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     //******VISTA DEL GRAFICO**************
     private BubbleChartData data;
     BubbleChartView chart;
-    VariablesGlobales global = new VariablesGlobales();
     private View setGraph(ViewGroup parent){
         View view1 = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_graph_buble, parent, false);
@@ -178,7 +177,7 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     ConectorBD conector;
     private void initializeData(){
         conector = new ConectorBD(this);
-        conector.getDataForTab2();
+        conector.getDataForTab3();
     }
     private void updateData(){
         initializeData();

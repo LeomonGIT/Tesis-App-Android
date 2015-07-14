@@ -2,23 +2,29 @@ package pe.edu.ulima.tesis_app_android.ui.mainMenu.Adapter;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
+import lecho.lib.hellocharts.model.BubbleValue;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.view.ColumnChartView;
 import pe.edu.ulima.tesis_app_android.R;
+import pe.edu.ulima.tesis_app_android.services.ConectorBD;
+import pe.edu.ulima.tesis_app_android.services.ConectorBDInterface;
 import pe.edu.ulima.tesis_app_android.services.VariablesGlobales;
 
-public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ConectorBDInterface{
 
     List<Object> contents;
 
@@ -85,6 +91,8 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     //**************************VISTA DEL GRAFICO************************
 
+    ColumnChartView chart;
+    ColumnChartData data;
     VariablesGlobales global = new VariablesGlobales();
     private View setGraph(ViewGroup parent){
         View view1 = LayoutInflater.from(parent.getContext())
@@ -92,8 +100,6 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         boolean hasAxes = true;
         boolean hasAxesNames = true;
-         ColumnChartView chart;
-         ColumnChartData data;
 
         chart = (ColumnChartView) view1.findViewById(R.id.chartBar);
         List<AxisValue> axisX = new ArrayList<AxisValue>();
@@ -131,9 +137,42 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         chart.setColumnChartData(data);
+        //boton actualizar
+        final View vista = parent;
+        ImageButton btnUpdate = (ImageButton) view1.findViewById(R.id.btnUpdate);
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateData();
+                Toast.makeText(vista.getContext(), "Actualizado", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         return view1;
 
-
+    }
+    ConectorBD conector;
+    private void initializeData(){
+        conector = new ConectorBD(this);
+        conector.getDataForTab4();
+    }
+    private void updateData(){
+        initializeData();
+    }
+    private void updateGraph(){
+        Log.e("btnUpdate", "actualizando...");
+        for (Column column : data.getColumns()) {
+            for (SubcolumnValue value : column.getValues()) {
+                value.setTarget((float) Math.random() * 100);
+            }
+        }
+        chart.startDataAnimation();
+    }
+    @Override
+    public void getDataFromBI(){
+        updateGraph();
+        //updateTable();
+        Log.e("callBack", "finished");
     }
 
     //**************************VISTA DE LOS DATOS************************

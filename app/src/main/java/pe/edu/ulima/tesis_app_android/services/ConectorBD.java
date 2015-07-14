@@ -65,4 +65,64 @@ public class ConectorBD{
         });
     }
 
+    public void getDataForTab3(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Tab3");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if(e==null || list != null){
+                    ArrayList<Tab2DAO> temp = new ArrayList<>();
+                    for(ParseObject object : list){
+                        Tab2DAO tab2 =  new Tab2DAO(Integer.parseInt(object.get("data").toString()),
+                                object.get("dia").toString());
+                        temp.add(tab2);
+                        Log.e("Add to array is:" , tab2.toString());
+                    }
+                    controller.setArrayTab2(temp);
+                    conector.getDataFromBI();
+                }
+            }
+        });
+    }
+
+    public void getDataForTab4(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Tab4");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if(e==null || list != null){
+                    ArrayList<Tab2DAO> temp = new ArrayList<>();
+                    for(ParseObject object : list){
+                        Tab2DAO tab2 =  new Tab2DAO(Integer.parseInt(object.get("data").toString()),
+                                object.get("dia").toString());
+                        temp.add(tab2);
+                        Log.e("Add to array is:" , tab2.toString());
+                    }
+                    controller.setArrayTab2(temp);
+                    conector.getDataFromBI();
+                }
+            }
+        });
+    }
+
+    public void getDataForTab5(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Tab5");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if(e==null || list != null){
+                    ArrayList<Tab2DAO> temp = new ArrayList<>();
+                    for(ParseObject object : list){
+                        Tab2DAO tab2 =  new Tab2DAO(Integer.parseInt(object.get("data").toString()),
+                                object.get("dia").toString());
+                        temp.add(tab2);
+                        Log.e("Add to array is:" , tab2.toString());
+                    }
+                    controller.setArrayTab2(temp);
+                    conector.getDataFromBI();
+                }
+            }
+        });
+    }
+
 }
