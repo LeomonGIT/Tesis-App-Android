@@ -6,10 +6,21 @@ package pe.edu.ulima.tesis_app_android.DAO;
 public class Tab3DAO {
     private String dia;
     private int dato;
+    private double porcentaje;
 
-    public Tab3DAO(int dato, String dia) {
+    public Tab3DAO(String dia, int dato, double porcentaje) {
         this.dia = dia;
         this.dato = dato;
+        this.porcentaje = porcentaje;
+    }
+
+    @Override
+    public String toString() {
+        return "Tab3DAO{" +
+                "dia='" + dia + '\'' +
+                ", dato=" + dato +
+                ", porcentaje=" + porcentaje +
+                '}';
     }
 
     public String getDia() {
@@ -28,11 +39,11 @@ public class Tab3DAO {
         this.dato = dato;
     }
 
-    @Override
-    public String toString() {
-        return "Tab3DAO{" +
-                "dia='" + dia + '\'' +
-                ", dato=" + dato +
-                '}';
+    public double getPorcentaje() {
+        return porcentaje;
+    }
+
+    public void setPorcentaje(double porcentaje) {
+        this.porcentaje = porcentaje;
     }
 }

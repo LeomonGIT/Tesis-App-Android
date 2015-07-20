@@ -63,40 +63,48 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Vendedor A"
                         style="@style/BodyText" />
-                    <TextView android:text="200"
+                    <TextView android:text="0"
+                        android:id="@+id/dataVendorA"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
-                    <TextView android:text="50.0%"
+                    <TextView android:text="0.00%"
+                        android:id="@+id/dataVendorAPorcentaje"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                 </TableRow>
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Vendedor B"
                         style="@style/BodyText" />
-                    <TextView android:text="100"
+                    <TextView android:text="0"
+                        android:id="@+id/dataVendorB"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
-                    <TextView android:text="25.0%"
+                    <TextView android:text="0.00%"
+                        android:id="@+id/dataVendorBPorcentaje"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                 </TableRow>
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Vendedor C"
                         style="@style/BodyText" />
-                    <TextView android:text="50"
+                    <TextView android:text="0"
+                        android:id="@+id/dataVendorC"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
-                    <TextView android:text="12.5%"
+                    <TextView android:text="0.00%"
+                        android:id="@+id/dataVendorCPorcentaje"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                 </TableRow>
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Vendedor D"
                         style="@style/BodyText" />
-                    <TextView android:text="50"
+                    <TextView android:text="0"
+                        android:id="@+id/dataVendorD"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
-                    <TextView android:text="12.5%"
+                    <TextView android:text="0.00%"
+                        android:id="@+id/dataVendorDPorcentaje"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                 </TableRow>

@@ -9,6 +9,7 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import pe.edu.ulima.tesis_app_android.DAO.Tab1DAO;
 import pe.edu.ulima.tesis_app_android.DAO.Tab2DAO;
@@ -50,8 +51,9 @@ public class ConectorBD{
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                if(e==null || list != null){
-                    ArrayList<Tab2DAO> temp = new ArrayList<>();
+                ArrayList<Tab2DAO> temp = new ArrayList<>();
+                if(e==null && list.size()>0){
+                    Log.e("getDataForTab2 2:" , "list not null");
                     for(ParseObject object : list){
                         Tab2DAO tab2 =  new Tab2DAO(Integer.parseInt(object.get("data").toString()),
                                 object.get("dia").toString());
@@ -60,6 +62,19 @@ public class ConectorBD{
                     }
                     controller.setArrayTab2(temp);
                     conector.getDataFromBI();
+                }else{
+                    Random rand = new Random();
+                    for (int i = 0; i < 6; i++) {
+                        int randomNum = rand.nextInt((24 - 0) + 1) + 0;
+                        Tab2DAO tab2 =  new Tab2DAO(randomNum,
+                                "dia");
+                        temp.add(tab2);
+                        Log.e("Add to temp is:", tab2.toString());
+                    }
+
+                    controller.setArrayTab2(temp);
+                    conector.getDataFromBI();
+                    //e.printStackTrace();
                 }
             }
         });

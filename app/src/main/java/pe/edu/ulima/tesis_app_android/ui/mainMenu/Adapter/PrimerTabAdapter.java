@@ -111,6 +111,7 @@ public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
+    ////************************************** GRAPH CARD ******************
     List<SliceValue> values;
     ImageButton btnUpdate;
     ConectorBD conector;
@@ -137,10 +138,8 @@ public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             hasLabelForSelected = false;
             chart.setValueSelectionEnabled(hasLabelForSelected);
         }
-
-                //chart.setOnValueTouchListener(new ValueTouchListener());
-                values =new GenerateData().getDataPieFromBi();
-                data = new PieChartData(values);
+        values =new GenerateData().getDataPieFromBi();
+        data = new PieChartData(values);
         data.setHasLabels(hasLabels);
                 data.setHasLabelsOnlyForSelected(hasLabelForSelected);
         data.setHasLabelsOutside(hasLabelsOutside);

@@ -1,11 +1,13 @@
 package pe.edu.ulima.tesis_app_android.ui.mainMenu.Adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -16,11 +18,13 @@ import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.BubbleChartData;
 import lecho.lib.hellocharts.model.BubbleValue;
 import lecho.lib.hellocharts.model.ValueShape;
-import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.BubbleChartView;
+import pe.edu.ulima.tesis_app_android.DAO.Tab3DAO;
 import pe.edu.ulima.tesis_app_android.R;
 import pe.edu.ulima.tesis_app_android.services.ConectorBD;
 import pe.edu.ulima.tesis_app_android.services.ConectorBDInterface;
+import pe.edu.ulima.tesis_app_android.services.ControllerTabs;
+import pe.edu.ulima.tesis_app_android.services.VariablesGlobales;
 
 public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ConectorBDInterface{
 
@@ -58,7 +62,7 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
-        //initializeData();
+        initializeData();
 
         switch (viewType) {
             /*case TYPE_BUTTON:{
@@ -83,9 +87,9 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
 
             case TYPE_DATA: {
-                view = LayoutInflater.from(parent.getContext())
+                viewTable = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_table_tab3, parent, false);
-                return new RecyclerView.ViewHolder(view) {
+                return new RecyclerView.ViewHolder(viewTable) {
                 };
             }
 
@@ -112,6 +116,7 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     //******VISTA DEL GRAFICO**************
     private BubbleChartData data;
+    VariablesGlobales global = new VariablesGlobales();
     BubbleChartView chart;
     private View setGraph(ViewGroup parent){
         View view1 = LayoutInflater.from(parent.getContext())
@@ -132,10 +137,11 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         for (int i = 0; i < BUBBLES_NUM; ++i) {
             //BubbleValue value = new BubbleValue(i, data[i][0], data[i][1]);
             BubbleValue value = new BubbleValue(i, (float) Math.random() * 100, (float) Math.random() * 1000);
-            value.setColor(ChartUtils.pickColor());
+            value.setColor(Color.parseColor(global.getColor()[i]));
             value.setShape(shape);
             values.add(value);
-            axisX.add(new AxisValue(i).setLabel(vendedor[i]));
+            //axisX.add(new AxisValue(i).setLabel(vendedor[i]));
+            axisX.add(new AxisValue(i));
         }
         data = new BubbleChartData(values);
         data.setHasLabels(hasLabels);
@@ -160,8 +166,7 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //updateData();
-                updateGraph();
+                updateData();
                 Toast.makeText(vista.getContext(), "Actualizado", Toast.LENGTH_SHORT).show();
 
             }
@@ -174,9 +179,11 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         conector = new ConectorBD(this);
         conector.getDataForTab3();
     }
+
     private void updateData(){
         initializeData();
     }
+
     private void updateGraph(){
         Log.e("btnUpdate", "actualizando...");
         for (BubbleValue value : data.getValues()) {
@@ -185,10 +192,12 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
         chart.startDataAnimation();
     }
+
     private int getSign() {
         int[] sign = new int[]{-1, 1};
         return sign[Math.round((float) Math.random())];
     }
+
     @Override
     public void getDataFromBI(){
         updateGraph();
@@ -197,5 +206,25 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     //******VISTA DE LOS DATOS**************
+    View viewTable;
+    private void updateTable() {
+        TextView dataVendorA = (TextView) viewTable.findViewById(R.id.dataVendorA);
+        TextView dataVendorB = (TextView) viewTable.findViewById(R.id.dataVendorB);
+        TextView dataVendorC = (TextView) viewTable.findViewById(R.id.dataVendorC);
+        TextView dataVendorD = (TextView) viewTable.findViewById(R.id.dataVendorD);
+        TextView dataVendorAPorcentaje = (TextView) viewTable.findViewById(R.id.dataVendorAPorcentaje);
+        TextView dataVendorBPorcentaje = (TextView) viewTable.findViewById(R.id.dataVendorBPorcentaje);
+        TextView dataVendorCPorcentaje = (TextView) viewTable.findViewById(R.id.dataVendorCPorcentaje);
+        TextView dataVendorDPorcentaje = (TextView) viewTable.findViewById(R.id.dataVendorDPorcentaje);
 
+        ArrayList<Tab3DAO> data = ControllerTabs.getInstance().getArrayTab3();
+        dataVendorA.setText(""+data.get(0).getDato());
+        dataVendorB.setText(""+data.get(1).getDato());
+        dataVendorC.setText(""+data.get(2).getDato());
+        dataVendorD.setText("" + data.get(3).getDato());
+        dataVendorAPorcentaje.setText("" + data.get(0).getPorcentaje());
+        dataVendorBPorcentaje.setText("" + data.get(1).getPorcentaje());
+        dataVendorCPorcentaje.setText("" + data.get(2).getPorcentaje());
+        dataVendorDPorcentaje.setText("" + data.get(3).getPorcentaje());
+    }
 }

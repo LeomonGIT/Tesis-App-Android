@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -19,9 +20,11 @@ import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.LineChartView;
+import pe.edu.ulima.tesis_app_android.DAO.Tab2DAO;
 import pe.edu.ulima.tesis_app_android.R;
 import pe.edu.ulima.tesis_app_android.services.ConectorBD;
 import pe.edu.ulima.tesis_app_android.services.ConectorBDInterface;
+import pe.edu.ulima.tesis_app_android.services.ControllerTabs;
 import pe.edu.ulima.tesis_app_android.services.GenerateData;
 import pe.edu.ulima.tesis_app_android.services.VariablesGlobales;
 
@@ -57,7 +60,7 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
-        //initializeData();
+        initializeData();
 
         switch (viewType) {
             /*case TYPE_BUTTON:{
@@ -75,9 +78,9 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             case TYPE_DATA: {
-                view = LayoutInflater.from(parent.getContext())
+                viewTable = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_table_tab2, parent, false);
-                return new RecyclerView.ViewHolder(view) {
+                return new RecyclerView.ViewHolder(viewTable) {
                 };
             }
 
@@ -173,7 +176,6 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //updateData();
                 updateData();
                 Toast.makeText(vista.getContext(), "Actualizado", Toast.LENGTH_SHORT).show();
 
@@ -192,9 +194,12 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void updateGraph(){
         Log.e("btnUpdate", "actualizando...");
         for (Line line : data.getLines()) {
+            int i=0;
             for (PointValue value : line.getValues()) {
                 // Here I modify target only for Y values but it is OK to modify X targets as well.
-                value.setTarget(value.getX(), (float) Math.random() * 100);
+                value.setTarget(value.getX(),ControllerTabs.getInstance().getArrayTab2().get(i).getDato());
+                i++;
+                //value.setTarget(value.getX(), (float) Math.random() * 100);
             }
         }
         chart.startDataAnimation();
@@ -203,10 +208,26 @@ public class SegundoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void getDataFromBI(){
         updateGraph();
-        //updateTable();
+        updateTable();
         Log.e("callBack", "finished");
     }
 
     //*************VISTA DE LOS DATOS***********
+    View viewTable;
+    private void updateTable() {
+        TextView dataLunes = (TextView) viewTable.findViewById(R.id.dataLunes);
+        TextView dataMartes = (TextView) viewTable.findViewById(R.id.dataMartes);
+        TextView dataMiercoles = (TextView) viewTable.findViewById(R.id.dataMiercoles);
+        TextView dataJueves = (TextView) viewTable.findViewById(R.id.dataJueves);
+        TextView dataViernes = (TextView) viewTable.findViewById(R.id.dataViernes);
+        TextView dataSabado = (TextView) viewTable.findViewById(R.id.dataSabado);
 
+        ArrayList<Tab2DAO> data = ControllerTabs.getInstance().getArrayTab2();
+        dataLunes.setText(""+data.get(0).getDato());
+        dataMartes.setText(""+data.get(1).getDato());
+        dataMiercoles.setText(""+data.get(2).getDato());
+        dataJueves.setText(""+data.get(3).getDato());
+        dataViernes.setText("" + data.get(4).getDato());
+        dataSabado.setText("" + data.get(5).getDato());
+    }
 }
