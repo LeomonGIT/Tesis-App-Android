@@ -15,6 +15,7 @@ import pe.edu.ulima.tesis_app_android.DAO.Tab1DAO;
 import pe.edu.ulima.tesis_app_android.DAO.Tab2DAO;
 import pe.edu.ulima.tesis_app_android.DAO.Tab3DAO;
 import pe.edu.ulima.tesis_app_android.DAO.Tab4DAO;
+import pe.edu.ulima.tesis_app_android.DAO.Tab5DAO;
 
 public class ConectorBD{
 
@@ -57,8 +58,8 @@ public class ConectorBD{
                 if(e==null && list.size()>0){
                     Log.e("getDataForTab2 2:" , "list not null");
                     for(ParseObject object : list){
-                        Tab2DAO tab2 =  new Tab2DAO(Integer.parseInt(object.get("data").toString()),
-                                object.get("dia").toString());
+                        Tab2DAO tab2 =  new Tab2DAO(Integer.parseInt(object.get("Data").toString()),
+                                object.get("Dia").toString());
                         temp.add(tab2);
                         Log.e("Add to array is:" , tab2.toString());
                     }
@@ -168,16 +169,18 @@ public class ConectorBD{
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                if(e==null || list != null){
-                    ArrayList<Tab2DAO> temp = new ArrayList<>();
+                if(e==null && list.size()>0){
+                    ArrayList<Tab5DAO> temp = new ArrayList<>();
                     for(ParseObject object : list){
-                        Tab2DAO tab2 =  new Tab2DAO(Integer.parseInt(object.get("data").toString()),
+                        Tab5DAO tab5 =  new Tab5DAO(Integer.parseInt(object.get("data").toString()),
                                 object.get("dia").toString());
-                        temp.add(tab2);
-                        Log.e("Add to array is:" , tab2.toString());
+                        temp.add(tab5);
+                        Log.e("Add to array is:" , tab5.toString());
                     }
-                    controller.setArrayTab2(temp);
+                    controller.setArrayTab5(temp);
                     conector.getDataFromBI();
+                }else{
+
                 }
             }
         });

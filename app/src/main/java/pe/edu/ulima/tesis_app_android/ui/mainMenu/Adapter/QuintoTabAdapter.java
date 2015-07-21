@@ -291,6 +291,5 @@ public class QuintoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         chartTop.startDataAnimation(300);
     }
 
-
     //*********VISTA DE DATOS*********
 }
