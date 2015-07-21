@@ -13,6 +13,8 @@ import java.util.Random;
 
 import pe.edu.ulima.tesis_app_android.DAO.Tab1DAO;
 import pe.edu.ulima.tesis_app_android.DAO.Tab2DAO;
+import pe.edu.ulima.tesis_app_android.DAO.Tab3DAO;
+import pe.edu.ulima.tesis_app_android.DAO.Tab4DAO;
 
 public class ConectorBD{
 
@@ -85,19 +87,49 @@ public class ConectorBD{
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                if(e==null || list != null){
-                    ArrayList<Tab2DAO> temp = new ArrayList<>();
+                ArrayList<Tab3DAO> temp = new ArrayList<>();
+                if(e==null && list.size()>0){
                     for(ParseObject object : list){
-                        Tab2DAO tab2 =  new Tab2DAO(Integer.parseInt(object.get("data").toString()),
-                                object.get("dia").toString());
-                        temp.add(tab2);
-                        Log.e("Add to array is:" , tab2.toString());
+                        Tab3DAO tab3 =  new Tab3DAO(object.get("dia").toString(),Integer.parseInt(object.get("data").toString()),
+                                Float.parseFloat(object.get("porcentaje").toString()));
+                        temp.add(tab3);
+                        Log.e("Add to array is:" , tab3.toString());
                     }
-                    controller.setArrayTab2(temp);
+                    controller.setArrayTab3(temp);
                     conector.getDataFromBI();
+                }else{
+                    Random rand = new Random();
+                    int data[]=new int[4];
+                    float porcentaje[];
+                    for (int i = 0; i < 4; i++) {
+                        data[i] = rand.nextInt((24 - 0) + 1) + 0;
+                    }
+                    porcentaje = calcularPorcentajeTab3(data);
+                    for (int i = 0; i < 4; i++) {
+                        Tab3DAO tab3 =  new Tab3DAO("dia",data[i],porcentaje[i]);
+                        temp.add(tab3);
+                        Log.e("Add to temp is:", tab3.toString());
+                    }
+
+                    controller.setArrayTab3(temp);
+                    conector.getDataFromBI();
+                    //e.printStackTrace();
                 }
             }
         });
+    }
+    private float[] calcularPorcentajeTab3(int data[]){
+        float porcen[] = new float[4];
+        int acum = 0;
+        for (int i = 0; i <4 ; i++) {
+            acum += data[i];
+        }
+        Log.e("acum", "" + acum);
+        for (int i = 0; i <4 ; i++) {
+            porcen[i]=(float)data[i]/acum*100;
+            Log.e("porcen["+i+"] =",""+porcen[i]);
+        }
+        return porcen;
     }
 
     public void getDataForTab4(){
@@ -105,16 +137,27 @@ public class ConectorBD{
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                if(e==null || list != null){
-                    ArrayList<Tab2DAO> temp = new ArrayList<>();
+                ArrayList<Tab4DAO> temp = new ArrayList<>();
+                if(e==null && list.size()>0){
                     for(ParseObject object : list){
-                        Tab2DAO tab2 =  new Tab2DAO(Integer.parseInt(object.get("data").toString()),
-                                object.get("dia").toString());
-                        temp.add(tab2);
-                        Log.e("Add to array is:" , tab2.toString());
+                        Tab4DAO tab4 =  new Tab4DAO(Integer.parseInt(object.get("data").toString()),
+                                object.get("mes").toString());
+                        temp.add(tab4);
+                        Log.e("Add to array is:" , tab4.toString());
                     }
-                    controller.setArrayTab2(temp);
+                    controller.setArrayTab4(temp);
                     conector.getDataFromBI();
+                }else {
+                    Random rand = new Random();
+                    for (int i = 0; i < 12; i++) {
+                        int randomNum = rand.nextInt((1200 - 0) + 1) + 0;
+                        Tab4DAO tab4 = new Tab4DAO(randomNum,"mes");
+                        temp.add(tab4);
+                        Log.e("Add to temp is:", tab4.toString());
+                    }
+                    controller.setArrayTab4(temp);
+                    conector.getDataFromBI();
+                    //e.printStackTrace();
                 }
             }
         });

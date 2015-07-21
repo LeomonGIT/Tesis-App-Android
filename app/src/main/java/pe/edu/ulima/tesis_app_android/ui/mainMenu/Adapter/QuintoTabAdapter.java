@@ -140,6 +140,16 @@ public class QuintoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             }
         });
+        //boton Editar
+        ImageButton btnEdit = (ImageButton) view0.findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //updateData();
+                Toast.makeText(vista.getContext(), "Proximamente.", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         return view0;
 
     }

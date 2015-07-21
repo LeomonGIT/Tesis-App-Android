@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/BodyTable">
                 <TableRow style="@style/BodyRow">
-                    <TextView android:text="Vendedor A"
+                    <TextView android:text="Nancy Davolio"
                         style="@style/BodyText" />
                     <TextView android:text="0"
                         android:id="@+id/dataVendorA"
@@ -73,7 +73,7 @@
                         android:layout_weight="1"/>
                 </TableRow>
                 <TableRow style="@style/BodyRow">
-                    <TextView android:text="Vendedor B"
+                    <TextView android:text="Jose Ruiz"
                         style="@style/BodyText" />
                     <TextView android:text="0"
                         android:id="@+id/dataVendorB"
@@ -85,7 +85,7 @@
                         android:layout_weight="1"/>
                 </TableRow>
                 <TableRow style="@style/BodyRow">
-                    <TextView android:text="Vendedor C"
+                    <TextView android:text="Miguel Sanchez"
                         style="@style/BodyText" />
                     <TextView android:text="0"
                         android:id="@+id/dataVendorC"
@@ -97,7 +97,7 @@
                         android:layout_weight="1"/>
                 </TableRow>
                 <TableRow style="@style/BodyRow">
-                    <TextView android:text="Vendedor D"
+                    <TextView android:text="Daniel Pereira"
                         style="@style/BodyText" />
                     <TextView android:text="0"
                         android:id="@+id/dataVendorD"

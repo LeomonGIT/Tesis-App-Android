@@ -6,10 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,14 +76,12 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             case TYPE_GRAPH: {
                 view = setGraph(parent);
-
                 return new RecyclerView.ViewHolder(view) {
                 };
             }
 
             case TYPE_LABEL: {
-                view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_label_bubble, parent, false);
+                view = setLabels(parent);
                 return new RecyclerView.ViewHolder(view) {
                 };
             }
@@ -116,7 +116,8 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     //******VISTA DEL GRAFICO**************
     private BubbleChartData data;
-    VariablesGlobales global = new VariablesGlobales();
+    List<BubbleValue> values ;
+            VariablesGlobales global = new VariablesGlobales();
     BubbleChartView chart;
     private View setGraph(ViewGroup parent){
         View view1 = LayoutInflater.from(parent.getContext())
@@ -129,11 +130,10 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
          boolean hasLabelForSelected = false;
 
         chart = (BubbleChartView) view1.findViewById(R.id.chartBuble);
-        int BUBBLES_NUM = 5;
+        int BUBBLES_NUM = 4;
         //float[][] data= getDataBubleFromBI();
-        List<BubbleValue> values = new ArrayList<BubbleValue>();
+        values = new ArrayList<>();
         List<AxisValue> axisX = new ArrayList<AxisValue>();
-        String[] vendedor ={"A","B","C","D","E"};
         for (int i = 0; i < BUBBLES_NUM; ++i) {
             //BubbleValue value = new BubbleValue(i, data[i][0], data[i][1]);
             BubbleValue value = new BubbleValue(i, (float) Math.random() * 100, (float) Math.random() * 1000);
@@ -141,7 +141,7 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             value.setShape(shape);
             values.add(value);
             //axisX.add(new AxisValue(i).setLabel(vendedor[i]));
-            axisX.add(new AxisValue(i));
+            //axisX.add(new AxisValue(i));
         }
         data = new BubbleChartData(values);
         data.setHasLabels(hasLabels);
@@ -168,6 +168,16 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             public void onClick(View view) {
                 updateData();
                 Toast.makeText(vista.getContext(), "Actualizado", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        //boton Editar
+        ImageButton btnEdit = (ImageButton) view1.findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //updateData();
+                Toast.makeText(vista.getContext(), "Proximamente.", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -201,10 +211,26 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void getDataFromBI(){
         updateGraph();
-        //updateTable();
+        updateTable();
         Log.e("callBack", "finished");
     }
+    ////************************************** LABEL CARD ******************
+    private View setLabels(ViewGroup parent){
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_label_bubble, parent, false);
 
+        Button A = (Button) view.findViewById(R.id.colorA);
+        Button B = (Button) view.findViewById(R.id.colorB);
+        Button C = (Button) view.findViewById(R.id.colorC);
+        Button D = (Button) view.findViewById(R.id.colorD);
+
+        A.setBackgroundColor(values.get(0).getColor());
+        B.setBackgroundColor(values.get(1).getColor());
+        C.setBackgroundColor(values.get(2).getColor());
+        D.setBackgroundColor(values.get(3).getColor());
+
+        return view;
+    }
     //******VISTA DE LOS DATOS**************
     View viewTable;
     private void updateTable() {
@@ -222,9 +248,10 @@ public class TercerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         dataVendorB.setText(""+data.get(1).getDato());
         dataVendorC.setText(""+data.get(2).getDato());
         dataVendorD.setText("" + data.get(3).getDato());
-        dataVendorAPorcentaje.setText("" + data.get(0).getPorcentaje());
-        dataVendorBPorcentaje.setText("" + data.get(1).getPorcentaje());
-        dataVendorCPorcentaje.setText("" + data.get(2).getPorcentaje());
-        dataVendorDPorcentaje.setText("" + data.get(3).getPorcentaje());
+        DecimalFormat df = new DecimalFormat("##.##");
+        dataVendorAPorcentaje.setText("" + df.format(data.get(0).getPorcentaje()));
+        dataVendorBPorcentaje.setText("" + df.format(data.get(1).getPorcentaje()));
+        dataVendorCPorcentaje.setText("" + df.format(data.get(2).getPorcentaje()));
+        dataVendorDPorcentaje.setText("" + df.format(data.get(3).getPorcentaje()));
     }
 }

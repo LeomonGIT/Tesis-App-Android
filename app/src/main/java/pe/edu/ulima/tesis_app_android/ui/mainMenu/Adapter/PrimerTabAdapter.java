@@ -113,7 +113,7 @@ public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     ////************************************** GRAPH CARD ******************
     List<SliceValue> values;
-    ImageButton btnUpdate;
+    ImageButton btnUpdate,btnEdit;
     ConectorBD conector;
     PieChartData data;
     PieChartView chart;
@@ -133,6 +133,7 @@ public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         initializeData();
         chart = (PieChartView) view0.findViewById(R.id.chartPie);
         btnUpdate = (ImageButton) view0.findViewById(R.id.btnUpdatePie);
+        btnEdit = (ImageButton) view0.findViewById(R.id.btnEdit);
 
         if (hasLabels) {
             hasLabelForSelected = false;
@@ -153,6 +154,14 @@ public class PrimerTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             public void onClick(View view) {
                 updateData();
                 Toast.makeText(vista.getContext(), "Actualizado", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //updateData();
+                Toast.makeText(vista.getContext(), "Proximamente.", Toast.LENGTH_SHORT).show();
 
             }
         });

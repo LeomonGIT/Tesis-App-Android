@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,9 +19,11 @@ import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.view.ColumnChartView;
+import pe.edu.ulima.tesis_app_android.DAO.Tab4DAO;
 import pe.edu.ulima.tesis_app_android.R;
 import pe.edu.ulima.tesis_app_android.services.ConectorBD;
 import pe.edu.ulima.tesis_app_android.services.ConectorBDInterface;
+import pe.edu.ulima.tesis_app_android.services.ControllerTabs;
 import pe.edu.ulima.tesis_app_android.services.VariablesGlobales;
 
 public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ConectorBDInterface{
@@ -56,7 +59,7 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
-        //dainitializeData();
+        initializeData();
         switch (viewType) {
             case TYPE_GRAPH:
             {
@@ -66,9 +69,9 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 };
             }
             case TYPE_DATA: {
-                view = LayoutInflater.from(parent.getContext())
+                viewTable = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_table_tab4, parent, false);
-                return new RecyclerView.ViewHolder(view) {
+                return new RecyclerView.ViewHolder(viewTable) {
                 };
             }
         }
@@ -143,9 +146,19 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //updateData();
+                updateData();
                 updateGraph();
                 Toast.makeText(vista.getContext(), "Actualizado", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        //boton Editar
+        ImageButton btnEdit = (ImageButton) view1.findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //updateData();
+                Toast.makeText(vista.getContext(), "Proximamente.", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -162,20 +175,52 @@ public class CuartoTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
     private void updateGraph(){
         Log.e("btnUpdate", "actualizando...");
+        int i = 0;
         for (Column column : data.getColumns()) {
+            //for (int i=0;i< data.getValues().size();i++) {
+                //SubcolumnValue value=data.getValues().get(i);
             for (SubcolumnValue value : column.getValues()) {
-                value.setTarget((float) Math.random() * 100);
+                value.setTarget(ControllerTabs.getInstance().getArrayTab4().get(i).getDato());
             }
+            i++;
         }
         chart.startDataAnimation();
     }
     @Override
     public void getDataFromBI(){
         updateGraph();
-        //updateTable();
+        updateTable();
         Log.e("callBack", "finished");
     }
 
-    //**************************VISTA DE LOS DATOS************************
+    ////************************************** DATA CARD ******************
+    View viewTable;
+    private void updateTable() {
+        TextView data1 = (TextView) viewTable.findViewById(R.id.data1);
+        TextView data2 = (TextView) viewTable.findViewById(R.id.data2);
+        TextView data3 = (TextView) viewTable.findViewById(R.id.data3);
+        TextView data4 = (TextView) viewTable.findViewById(R.id.data4);
+        TextView data5 = (TextView) viewTable.findViewById(R.id.data5);
+        TextView data6 = (TextView) viewTable.findViewById(R.id.data6);
+        TextView data7= (TextView) viewTable.findViewById(R.id.data7);
+        TextView data8 = (TextView) viewTable.findViewById(R.id.data8);
+        TextView data9 = (TextView) viewTable.findViewById(R.id.data9);
+        TextView data10 = (TextView) viewTable.findViewById(R.id.data10);
+        TextView data11= (TextView) viewTable.findViewById(R.id.data11);
+        TextView data12 = (TextView) viewTable.findViewById(R.id.data12);
 
+        ArrayList<Tab4DAO> data = ControllerTabs.getInstance().getArrayTab4();
+        data1.setText(""+data.get(0).getDato());
+        data2.setText(""+data.get(1).getDato());
+        data3.setText(""+data.get(2).getDato());
+        data4.setText(""+data.get(3).getDato());
+        data5.setText("" + data.get(4).getDato());
+        data6.setText("" + data.get(5).getDato());
+        data7.setText("" + data.get(6).getDato());
+        data8.setText("" + data.get(7).getDato());
+        data9.setText("" + data.get(8).getDato());
+        data10.setText("" + data.get(9).getDato());
+        data11.setText("" + data.get(10).getDato());
+        data12.setText("" + data.get(11).getDato());
+    }
 }

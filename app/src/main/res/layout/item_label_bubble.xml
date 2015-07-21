@@ -29,11 +29,11 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:background="#00f48e"
-            android:id="@+id/colorLunes" />
+            android:id="@+id/colorA" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vendedor A"/>
+            android:text="Nancy Davolio"/>
     </LinearLayout>
 
     <LinearLayout
@@ -48,11 +48,11 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:background="#00f48e"
-            android:id="@+id/colorMartes" />
+            android:id="@+id/colorB" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vendedor B"/>
+            android:text="Jose Ruiz"/>
     </LinearLayout>
 
     <LinearLayout
@@ -67,11 +67,11 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:background="#00f48e"
-            android:id="@+id/colorMiercoles" />
+            android:id="@+id/colorC" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vendedor C"/>
+            android:text="Miguel Sanchez"/>
     </LinearLayout>
 
     <LinearLayout
@@ -86,10 +86,10 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:background="#00f48e"
-            android:id="@+id/colorJueves" />
+            android:id="@+id/colorD" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vendedor D"/>
+            android:text="Daniel Pereira"/>
     </LinearLayout>
 </FrameLayout>

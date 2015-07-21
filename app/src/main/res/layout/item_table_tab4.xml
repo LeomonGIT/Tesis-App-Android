@@ -55,14 +55,16 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Enero"
                         style="@style/BodyText" />
-                    <TextView android:text="152"
+                    <TextView android:text="0"
                         style="@style/BodyText"
+                        android:id="@+id/data1"
                         android:layout_weight="1" />
                 </TableRow>
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Febrero"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
+                        android:id="@+id/data2"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
@@ -71,7 +73,8 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Marzo"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
+                        android:id="@+id/data3"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
@@ -80,7 +83,8 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Abril"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
+                        android:id="@+id/data4"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
@@ -89,7 +93,8 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Mayo"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
+                        android:id="@+id/data5"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
@@ -98,7 +103,8 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Junio"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
+                        android:id="@+id/data6"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
@@ -107,7 +113,8 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Julio"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
+                        android:id="@+id/data7"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
@@ -116,7 +123,8 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Agosto"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
+                        android:id="@+id/data8"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
@@ -125,7 +133,8 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Setiembre"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
+                        android:id="@+id/data9"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
@@ -134,7 +143,8 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Octubre"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
+                        android:id="@+id/data10"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
@@ -143,7 +153,8 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Noviembre"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
+                        android:id="@+id/data11"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"
@@ -152,7 +163,8 @@
                 <TableRow style="@style/BodyRow">
                     <TextView android:text="Diciembre"
                         style="@style/BodyText" />
-                    <TextView android:text="148"
+                    <TextView android:text="0"
+                        android:id="@+id/data12"
                         style="@style/BodyText"
                         android:layout_weight="1"/>
                     <!--TextView android:text="Cell 2,4"

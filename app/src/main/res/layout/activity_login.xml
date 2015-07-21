@@ -27,6 +27,7 @@
         android:id="@+id/user"
         android:textColorHint="#DDFFFFFF"
         android:hint="Usuario"
+        android:textColor="@color/white"
         android:layout_marginBottom="150dp"
         android:layout_alignBottom="@+id/img_titulo"
         android:layout_centerInParent="true"
@@ -40,6 +41,7 @@
         android:layout_marginTop="-150dp"
         android:textColorHint="#FFFFFF"
         android:hint="Password"
+        android:textColor="@color/white"
         android:layout_below="@+id/user"
         android:layout_centerHorizontal="true"
         android:gravity="center"/>
